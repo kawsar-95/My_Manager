@@ -35,40 +35,40 @@ describe('File Manager Tests', () => {
       .click();
   });
 
-  // context('Add New Folder', () => {
-  //   it('Validates the "Add New Folder" button is clickable', () => {
-  //     // Navigate to file manager
-  //     cy.get("a[href='/filemanager']", { timeout: 20000 })
-  //       .should('be.visible')
-  //       .click();
+  context('Add New Folder', () => {
+    it('Validates the "Add New Folder" button is clickable', () => {
+      // Navigate to file manager
+      cy.get("a[href='/filemanager']", { timeout: 20000 })
+        .should('be.visible')
+        .click();
 
-  //     // Check and click Add New Folder button
-  //     cy.get('.p-2 > .w-100')
-  //       .should('be.visible')
-  //       .click();
+      // Check and click Add New Folder button
+      cy.get('.p-2 > .w-100')
+        .should('be.visible')
+        .click();
 
-  //     // Verify modal appears
-  //     cy.get("div[class='modal-body'] input[type='text']").type('Test Folder')
-  //     cy.get("button[class='btn-next btn btn-primary']").click();
+      // Verify modal appears
+      cy.get("div[class='modal-body'] input[type='text']").type('Test Folder')
+      cy.get("button[class='btn-next btn btn-primary']").click();
 
 
-  //     // Attempt to type excessively
-  //     // Type a very long folder name (600+ characters)
-  //     cy.get("div[class='modal-body'] input[type='text']")
-  //       .type('ThisIsAnExcessivelyLongFolderNameWithLotsOfWordsToTestTheBoundariesAndLimitationsOfTheFolderNamingSystemInTheFileManagerApplicationAndToEnsureThatItHandlesLongInputsGracefullyWhileAlsoValidatingAnyPotentialCharacterLimitsOrRestrictionsInPlaceForFolderNamesThisStringContainsMultipleWordsAndCharactersToReachTheDesiredLengthAndTestTheSystemThoroughlyForAnyPotentialIssuesOrLimitationsWhenItComesToHandlingLongFolderNamesInTheApplicationThisTestWillHelpIdentifyAnyPotentialProblemsWithTheUserInterfaceOrBackendProcessingOfLongFolderNamesAndEnsureThatTheSystemCanHandleSuchInputsAppropriatelyWithoutCrashingOrCausingAnyUnexpectedBehaviorInTheApplicationThisIsParticularlyImportantForQualityAssuranceAndTestingPurposesEspeciallyWhenValidatingTheBoundaryConditionsAndEdgeCasesInTheFileManagerSystemToEnsureRobustAndReliableOperation');
-  //     // cy.get("button[class='btn-next btn btn-primary']").click();
-  //     cy.get('.p-2 > .w-100')
-  //       .should('be.visible')
-  //       .click();
-  //     cy.get("div[class='modal-body'] input[type='text']").type('Test Folder')
-  //     cy.get("button[class='btn-prev btn btn-outline-primary']").click()
-  //     cy.get('.p-2 > .w-100')
-  //       .should('be.visible')
-  //       .click();
-  //     cy.get("div[class='modal-body'] input[type='text']").type('Test Folder')
-  //     cy.get("button[aria-label='Close']").click()
-  //   });
-  // });
+      // Attempt to type excessively
+      // Type a very long folder name (600+ characters)
+      cy.get("div[class='modal-body'] input[type='text']")
+        .type('ThisIsAnExcessivelyLongFolderNameWithLotsOfWordsToTestTheBoundariesAndLimitationsOfTheFolderNamingSystemInTheFileManagerApplicationAndToEnsureThatItHandlesLongInputsGracefullyWhileAlsoValidatingAnyPotentialCharacterLimitsOrRestrictionsInPlaceForFolderNamesThisStringContainsMultipleWordsAndCharactersToReachTheDesiredLengthAndTestTheSystemThoroughlyForAnyPotentialIssuesOrLimitationsWhenItComesToHandlingLongFolderNamesInTheApplicationThisTestWillHelpIdentifyAnyPotentialProblemsWithTheUserInterfaceOrBackendProcessingOfLongFolderNamesAndEnsureThatTheSystemCanHandleSuchInputsAppropriatelyWithoutCrashingOrCausingAnyUnexpectedBehaviorInTheApplicationThisIsParticularlyImportantForQualityAssuranceAndTestingPurposesEspeciallyWhenValidatingTheBoundaryConditionsAndEdgeCasesInTheFileManagerSystemToEnsureRobustAndReliableOperation');
+      // cy.get("button[class='btn-next btn btn-primary']").click();
+      cy.get('.p-2 > .w-100')
+        .should('be.visible')
+        .click();
+      cy.get("div[class='modal-body'] input[type='text']").type('Test Folder')
+      cy.get("button[class='btn-prev btn btn-outline-primary']").click()
+      cy.get('.p-2 > .w-100')
+        .should('be.visible')
+        .click();
+      cy.get("div[class='modal-body'] input[type='text']").type('Test Folder')
+      cy.get("button[aria-label='Close']").click()
+    });
+  });
   context('File Manager Additional Tests', () => {
     it('Validates the "My Files" section is clickable', () => {
       cy.get("a[href='/filemanager']", { timeout: 20000 })
@@ -76,7 +76,7 @@ describe('File Manager Tests', () => {
         .click();
       cy.get("a[href='/filemanager/all']").click();
       cy.url().should('include', '/filemanager/all');
-
+      // 3 dots clickable or not validation
       // cy.get("(//a[@class='active list-group-item-action list-group-item'])[1]").click();
       // cy.get("((//button[@type='button'])[4]").click()
       cy.get(':nth-child(2) > .shadow-none > .justify-content-between > .dropdown > .bg-transparent').click()
@@ -84,24 +84,32 @@ describe('File Manager Tests', () => {
       cy.get(':nth-child(3) > .shadow-none > .position-absolute > .me-0 > .dropdown > .bg-transparent').click()
       cy.get('.dropdown-menu.show > :nth-child(1)').click()
       cy.get("button[aria-label='Close']").click()
-
+      //make a copy ok
       cy.get(':nth-child(2) > .shadow-none > .justify-content-between > .dropdown > .bg-transparent').click()
       cy.get('body').click(0, 0); // Click at coordinates (0,0) to close any open menus
       cy.get(':nth-child(3) > .shadow-none > .position-absolute > .me-0 > .dropdown > .bg-transparent').click()
       cy.get('.dropdown-menu.show > :nth-child(4)').click()
       cy.get('.swal2-confirm').click()
-
+      //make a copy cancel
 
       cy.get(':nth-child(2) > .shadow-none > .justify-content-between > .dropdown > .bg-transparent').click()
       cy.get('body').click(0, 0); // Click at coordinates (0,0) to close any open menus
       cy.get(':nth-child(3) > .shadow-none > .position-absolute > .me-0 > .dropdown > .bg-transparent').click()
       cy.get('.dropdown-menu.show > :nth-child(4)').click()
       cy.get('.swal2-cancel').click()
-
+      //important
       cy.get(':nth-child(2) > .shadow-none > .justify-content-between > .dropdown > .bg-transparent').click()
       cy.get('body').click(0, 0); // Click at coordinates (0,0) to close any open menus
       cy.get(':nth-child(3) > .shadow-none > .position-absolute > .me-0 > .dropdown > .bg-transparent').click()
       cy.get('.dropdown-menu.show > :nth-child(2)').click()
+      //share
+      cy.get(':nth-child(2) > .shadow-none > .justify-content-between > .dropdown > .bg-transparent').click()
+      cy.get('body').click(0, 0); // Click at coordinates (0,0) to close any open menus
+      cy.get(':nth-child(3) > .shadow-none > .position-absolute > .me-0 > .dropdown > .bg-transparent').click()
+      cy.get('.dropdown-menu.show > :nth-child(3)').click()
+      cy.get("cy.get('.justify-content-end > .me-1')").click()
+      cy.get('.btn-outline-danger').click()
+
 
     });
 
@@ -117,29 +125,14 @@ describe('File Manager Tests', () => {
     //   // Assert file upload if needed
     // });
 
-    // it('Validates file 3-dot button is clickable', () => {
-    //   cy.get('.file-dot-btn').click();
-    // });
 
-    // it('Validates file 3-dot "Preview" button is clickable', () => {
-    //   cy.get('.file-dot-btn').click();
-    //   cy.contains('Preview').click();
-    // });
 
-    // it('Validates file 3-dot "Important" button is clickable', () => {
-    //   cy.get('.file-dot-btn').click();
-    //   cy.contains('Important').click();
-    // });
 
-    // it('Validates file 3-dot "Share" button is clickable', () => {
-    //   cy.get('.file-dot-btn').click();
-    //   cy.contains('Share').click();
-    // });
 
-    // it('Validates file 3-dot "Make a Copy" button is clickable', () => {
-    //   cy.get('.file-dot-btn').click();
-    //   cy.contains('Make a copy').click();
-    // });
+
+
+
+
 
     // it('Validates file 3-dot "Rename" button is clickable', () => {
     //   cy.get('.file-dot-btn').click();
