@@ -54,13 +54,8 @@ Cypress.Commands.add('loginAndNavigate', () => {
   cy.get("button[type='button']")
     .should('be.visible')
     .click();
-
-  // Instead of cy.wait(35000), wait for network idle
-  cy.intercept('**/*').as('networkRequests');
-  cy.wait('@networkRequests');
-
+  cy.wait(35000);
   cy.get('.nav-menu-main', { timeout: 30000 })
-    .should('exist')
     .should('be.visible')
     .click();
 });
