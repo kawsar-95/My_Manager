@@ -25,7 +25,10 @@ describe('File Manager Tests', () => {
       fileManagerPage.clickNextButton();
 
       // Attempt to type excessively
-      fileManagerPage.typeFolderName('ThisIsAnExcessivelyLongFolderNameWithLotsOfWordsToTestTheBoundariesAndLimitationsOfTheFolderNamingSystemInTheFileManagerApplicationAndToEnsureThatItHandlesLongInputsGracefullyWhileAlsoValidatingAnyPotentialCharacterLimitsOrRestrictionsInPlaceForFolderNamesThisStringContainsMultipleWordsAndCharactersToReachTheDesiredLengthAndTestTheSystemThoroughlyForAnyPotentialIssuesOrLimitationsWhenItComesToHandlingLongFolderNamesInTheApplicationThisTestWillHelpIdentifyAnyPotentialProblemsWithTheUserInterfaceOrBackendProcessingOfLongFolderNamesAndEnsureThatTheSystemCanHandleSuchInputsAppropriatelyWithoutCrashingOrCausingAnyUnexpectedBehaviorInTheApplicationThisIsParticularlyImportantForQualityAssuranceAndTestingPurposesEspeciallyWhenValidatingTheBoundaryConditionsAndEdgeCasesInTheFileManagerSystemToEnsureRobustAndReliableOperation');
+      // Breaking the command into shorter operations to avoid DOM detachment issues
+      const longFolderName = 'ThisIsAnExcessivelyLongFolderNameWithLotsOfWordsToTestTheBoundariesAndLimitationsOfTheFolderNamingSystemInTheFileManagerApplicationAndToEnsureThatItHandlesLongInputsGracefullyWhileAlsoValidatingAnyPotentialCharacterLimitsOrRestrictionsInPlaceForFolderNamesThisStringContainsMultipleWordsAndCharactersToReachTheDesiredLengthAndTestTheSystemThoroughlyForAnyPotentialIssuesOrLimitationsWhenItComesToHandlingLongFolderNamesInTheApplicationThisTestWillHelpIdentifyAnyPotentialProblemsWithTheUserInterfaceOrBackendProcessingOfLongFolderNamesAndEnsureThatTheSystemCanHandleSuchInputsAppropriatelyWithoutCrashingOrCausingAnyUnexpectedBehaviorInTheApplicationThisIsParticularlyImportantForQualityAssuranceAndTestingPurposesEspeciallyWhenValidatingTheBoundaryConditionsAndEdgeCasesInTheFileManagerSystemToEnsureRobustAndReliableOperation';
+      fileManagerPage.typeFolderName(longFolderName);
+      cy.wait(500); // Wait for any DOM updates to complete
       fileManagerPage.clickAddNewFolderButton();
       fileManagerPage.typeFolderName('Test Folder');
       fileManagerPage.clickPrevButton();
@@ -49,32 +52,41 @@ describe('File Manager Tests', () => {
       fileManagerPage.clickCloseButton();
 
       // Make a copy ok
-      fileManagerPage.clickButtonByXpath("(//button[contains(@type,'button')])[4]");
+      fileManagerPage.clickButtonByXpath("(//button[contains(@type,'button')])[7]");
       fileManagerPage.clickBodyAtCoordinates(0, 0);
-      fileManagerPage.clickDropdownMenuItem(4);
-      cy.get('.swal2-confirm').click({ force: true });
+      // fileManagerPage.clickDropdownMenuItem(4);
+      cy.xpath("(//button[@role='menuitem'][normalize-space()='Make a copy'])[10]").click({ force: true });
+      fileManagerPage.clickBodyAtCoordinates(0, 0);
+
+      // cy.get('.swal2-confirm').click({ force: true });
 
       // Make a copy cancel
-      fileManagerPage.clickButtonByXpath("(//button[contains(@type,'button')])[4]");
+      fileManagerPage.clickButtonByXpath("(//button[contains(@type,'button')])[7]");
       fileManagerPage.clickBodyAtCoordinates(0, 0);
-      fileManagerPage.clickDropdownMenuItem(4);
-      cy.get('.swal2-cancel').click({ force: true });
+      cy.xpath("(//button[@role='menuitem'][normalize-space()='Make a copy'])[10]").click({ force: true });
+      // cy.get('.swal2-cancel').click({ force: true });
+      fileManagerPage.clickBodyAtCoordinates(0, 0);
+
 
       // Mark as important
-      fileManagerPage.clickButtonByXpath("(//button[contains(@type,'button')])[4]");
+      fileManagerPage.clickButtonByXpath("(//button[contains(@type,'button')])[7]");
       fileManagerPage.clickBodyAtCoordinates(0, 0);
-      fileManagerPage.clickDropdownMenuItem(2);
+      // fileManagerPage.clickDropdownMenuItem(2);
+      cy.xpath("(//button[contains(@role,'menuitem')][normalize-space()='Important'])[5]").click({ force: true });
 
       // Share
-      fileManagerPage.clickButtonByXpath("(//button[contains(@type,'button')])[4]");
+      fileManagerPage.clickButtonByXpath("(//button[contains(@type,'button')])[7]");
       fileManagerPage.clickBodyAtCoordinates(0, 0);
-      fileManagerPage.clickDropdownMenuItem(3);
+      // fileManagerPage.clickDropdownMenuItem(3);
+      cy.xpath("(//button[contains(@role,'menuitem')][normalize-space()='Share'])[6]").click({ force: true });
       fileManagerPage.clickCloseButton();
 
       // Share button
-      fileManagerPage.clickButtonByXpath("(//button[contains(@type,'button')])[4]");
+      fileManagerPage.clickButtonByXpath("(//button[contains(@type,'button')])[7]");
       fileManagerPage.clickBodyAtCoordinates(0, 0);
-      fileManagerPage.clickDropdownMenuItem(5);
+      // fileManagerPage.clickDropdownMenuItem(5);
+      cy.xpath("(//button[@role='menuitem'][normalize-space()='Rename'])[11]").click({ force: true });
+      fileManagerPage.clickCloseButton();
       fileManagerPage.clickBodyAtCoordinates(0, 0);
 
       // Check all the main functions of file manager are clickable
@@ -95,13 +107,13 @@ describe('File Manager Tests', () => {
       // Check folders rename and delete actions are working
       fileManagerPage.clickMyFilesButton();
       cy.wait(1000);
-      fileManagerPage.clickButtonByXpath("(//button[contains(@type,'button')])[4]");
+      fileManagerPage.clickButtonByXpath("(//button[contains(@type,'button')])[7]");
       fileManagerPage.clickButtonByXpath("(//button[contains(@role,'menuitem')][normalize-space()='Rename'])[1]");
       fileManagerPage.renameFolder('test folder22');
-      fileManagerPage.clickButtonByXpath("(//button[contains(@type,'button')])[4]");
+      fileManagerPage.clickButtonByXpath("(//button[contains(@type,'button')])[7]");
       fileManagerPage.clickButtonByXpath("(//button[contains(@role,'menuitem')][normalize-space()='Rename'])[1]");
       fileManagerPage.cancelRenameFolder();
-      fileManagerPage.clickButtonByXpath("(//button[contains(@type,'button')])[4]");
+      fileManagerPage.clickButtonByXpath("(//button[contains(@type,'button')])[7]");
       fileManagerPage.clickButtonByXpath("(//button[contains(@role,'menuitem')][normalize-space()='Delete'])[1]");
       fileManagerPage.deleteFolder();
 
